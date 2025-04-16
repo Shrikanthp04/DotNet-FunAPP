@@ -21,7 +21,7 @@ namespace Function
 
         [Function("AccessingDBConnectionStr")]
         public async Task<HttpResponseData> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req)
         {
             _logger.LogInformation("Fetching DB connection string from Key Vault...");
 
@@ -35,7 +35,7 @@ namespace Function
                 string dbConnectionStr = secret.Value;
 
                 var response = req.CreateResponse(System.Net.HttpStatusCode.OK);
-                await response.WriteStringAsync($"DB Connection String: {dbConnectionStr}");
+                await response.WriteStringAsync($"DB Connection String: {dbConnectionStr}\n\n\n\n Region: Central US Region Function App!!!");
                 return response;
             }
             catch (Exception ex)
